@@ -1,12 +1,14 @@
 import express from "express";
 import { ENV } from "./config/env.js";
 import { sql } from "./config/db.js";
+import { rateLimiterMiddleware } from "./middleware/rateLimiter.js";
 
 const app = express();
 const PORT = ENV.PORT;
 
 //middleware
 app.use(express.json());
+app.use(rateLimiterMiddleware)
 
 async function initDB() {
   try {
